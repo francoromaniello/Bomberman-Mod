@@ -1,0 +1,36 @@
+name: Compile
+
+on: [push]
+
+jobs:
+  run:
+    name: Run action
+    runs-on: ${{ matrix.operating-systems }}
+    strategy:
+      matrix:
+        operating-systems: [
+            ubuntu-latest
+            #windows-latest,
+            # macos-latest
+          ]
+
+        amxmodx: ['1.9', '1.10']
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup AMXXPawn Compiler
+        uses: wopox1337/setup-amxxpawn@master
+        with:
+          version: ${{ matrix.amxmodx }}
+
+      # hlds not support macos x64
+      - name: Verify compiler
+        shell: bash
+        run: amxxpc src/bombarman_mod.sma -i"$includePath" -o"src/src/bombarman_mod.amxx"
+      
+      - name: 'Upload Artifact'
+        uses: actions/upload-artifact@v2
+        with:
+          name: bomberman_mod.amxx
+          path: bomberman_mod.amxx
