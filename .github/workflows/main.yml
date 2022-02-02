@@ -27,7 +27,7 @@ jobs:
       # hlds not support macos x64
       - name: Verify compiler
         shell: bash
-        run: amxxpc src/bomberman_mod.sma -i"$includePath" -o"src/src/bomberman_mod.amxx"
+        run: amxxpc src/bomberman_mod.sma -i"$includePath" -o"src/bomberman_mod.amxx"
       
       - name: 'Upload Artifact'
         uses: actions/upload-artifact@v2
